@@ -28,6 +28,9 @@ export class PokemonDetail implements OnChanges {
       ticks: { beginAtZero: true, min: 0, max: 200 }
     }
   };
+  
+  showOpeningAnimation = false;
+  showPanel = false;
 
   constructor(
     private snackBar: MatSnackBar
@@ -36,9 +39,23 @@ export class PokemonDetail implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pokemon'] && this.pokemon) {
       this.backgroundColor = this.getBackgroundColor(this.pokemon.types?.[0]);
-      setTimeout(() => this.renderRadarChart(), 0);
+      this.startOpeningAnimation();
       this.saveRecentPokemon(this.pokemon);
     }
+  }
+
+  startOpeningAnimation() {
+    this.showOpeningAnimation = true;
+    this.showPanel = false;
+    
+    setTimeout(() => {
+      this.showPanel = true;
+      setTimeout(() => this.renderRadarChart(), 100);
+    }, 500);
+    
+    setTimeout(() => {
+      this.showOpeningAnimation = false;
+    }, 1000);
   }
 
   renderRadarChart() {

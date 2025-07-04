@@ -19,10 +19,9 @@
   </div>
 </div>
 
-<!-- Lista de Pokémon -->
 <div *ngIf="!loading && !error" class="pokemon-list-grid">
   <ng-container *ngIf="paginatedPokemons.length > 0; else noResults">
-    <mat-card class="pokemon-card" *ngFor="let pokemon of paginatedPokemons" (click)="selectPokemon.emit(pokemon)">
+    <mat-card class="pokemon-card" *ngFor="let pokemon of paginatedPokemons" (click)="onPokemonClick(pokemon)" [class.capturing]="pokemon.capturing">
       <div class="pokemon-img-container">
         <img 
           [src]="pokemon.image" 
@@ -30,11 +29,19 @@
           (error)="pokemon.image = 'assets/placeholder.png'"
           [class.error-image]="pokemon.image === 'assets/placeholder.png'"
         />
-        <!-- Overlay para imágenes con error -->
         <div *ngIf="pokemon.image === 'assets/placeholder.png'" class="image-error-overlay">
           <mat-icon>image_not_supported</mat-icon>
         </div>
+
+        <div class="pokeball-capture" [class.capturing]="pokemon.capturing">
+          <div class="pokeball">
+            <div class="pokeball-top"></div>
+            <div class="pokeball-bottom"></div>
+            <div class="pokeball-center"></div>
+          </div>
+        </div>
       </div>
+
       <div class="pokemon-info">
         <span class="pokemon-id">#{{ pokemon.id || '???' }}</span>
         <h3 class="pokemon-name">{{ pokemon.name }}</h3>
@@ -47,7 +54,7 @@
             {{ type === 'unknown' ? '???' : type }}
           </span>
         </div>
-        <!-- Indicador de datos incompletos -->
+
         <div *ngIf="pokemon.id === 0" class="incomplete-data">
           <mat-icon class="warning-icon">warning</mat-icon>
           <span>Datos incompletos</span>
@@ -65,7 +72,6 @@
   </ng-template>
 </div>
 
-<!-- Controles de paginación -->
 <div *ngIf="!loading && !error && totalPagesArray.length > 1" class="pagination-controls">
   <button 
     *ngFor="let page of totalPagesArray; let i = index" 

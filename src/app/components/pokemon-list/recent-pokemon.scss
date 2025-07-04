@@ -10,6 +10,44 @@
   display: flex;
   flex-direction: column;
 }
+// Nuevo estilo para el título mejorado
+.recent-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid rgba(227, 53, 13, 0.1);
+}
+
+.recent-icon {
+  color: #e3350d;
+  font-size: 1.4rem;
+  animation: rotate-pulse 2s ease-in-out infinite;
+}
+
+.recent-heading {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e3350d;
+  margin: 0;
+  text-align: left;
+  background: linear-gradient(135deg, #e3350d 0%, #b71c1c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 1px 2px rgba(227, 53, 13, 0.1);
+}
+
+@keyframes rotate-pulse {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-5deg) scale(1.05); }
+  50% { transform: rotate(0deg) scale(1); }
+  75% { transform: rotate(5deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+// Mantener compatibilidad con h3 existente (si existe)
 .recent-pokemon-list h3 {
   font-size: 1.1rem;
   color: #e3350d;

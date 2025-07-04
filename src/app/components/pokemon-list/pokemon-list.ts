@@ -229,4 +229,13 @@ export class PokemonList implements OnInit {
     this.currentPage = 1;
     this.updateList();
   }
+
+  onPokemonClick(pokemon: Pokemon): void {
+    pokemon.capturing = true;
+    
+    setTimeout(() => {
+      pokemon.capturing = false;
+      this.selectPokemon.emit(pokemon);
+    }, 500);
+  }
 }

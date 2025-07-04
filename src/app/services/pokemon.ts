@@ -23,6 +23,7 @@ export interface Pokemon {
   weaknesses: string[];
   stats: { name: string; value: number }[];
   evolution: { name: string; image: string }[];
+  capturing?: boolean; // Propiedad opcional para la animación
 }
 
 @Injectable({

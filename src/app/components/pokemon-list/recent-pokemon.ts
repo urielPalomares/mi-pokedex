@@ -1,13 +1,17 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recent-pokemon',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   template: `
     <div class="recent-pokemon-list">
-      <h3>Recently Viewed</h3>
+      <div class="recent-title">
+        <mat-icon class="recent-icon">history</mat-icon>
+        <h3 class="recent-heading">Recently Viewed</h3>
+      </div>
       <div class="recent-pokemon-items">
         <div class="recent-pokemon-card" *ngFor="let p of recentPokemons" (click)="selectPokemon.emit(p)">
           <img [src]="p.image" [alt]="p.name" />

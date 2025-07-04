@@ -1,6 +1,9 @@
-# MiPokedex
+# Mi Pokedex
 
-¡Bienvenido/a a MiPokedex! Este es un proyecto Angular que consume la PokeAPI y muestra información de Pokémon con una interfaz moderna y amigable.
+¡Bienvenido/a a Mi Pokedex! Este es un proyecto Angular que consume la PokeAPI y muestra información de Pokémon con una interfaz moderna y amigable.
+
+## 🌐 Demo en vivo
+Puedes ver el proyecto funcionando en: **[https://mi-pokedex-uriel.netlify.app/](https://mi-pokedex-uriel.netlify.app/)**
 
 ## 🚀 ¿Cómo clonar y levantar el proyecto en local?
 

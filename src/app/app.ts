@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { Header } from './components/header/header';
 import { PokemonList } from './components/pokemon-list/pokemon-list';
 import { PokemonDetail } from './components/pokemon-detail/pokemon-detail';
@@ -10,6 +11,7 @@ import { RecentPokemon } from './components/pokemon-list/recent-pokemon';
   standalone: true,
   imports: [
     CommonModule,
+    MatIconModule,
     Header,
     PokemonList,
     PokemonDetail,

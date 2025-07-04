@@ -1,5 +1,14 @@
 <div *ngIf="pokemon" class="pokemon-detail-panel-wrapper">
-  <div class="pokemon-detail-panel redesigned">
+  <div class="pokeball-opening" [class.opening]="showOpeningAnimation">
+    <div class="pokeball-container">
+      <div class="pokeball-top-half"></div>
+      <div class="pokeball-bottom-half"></div>
+      <div class="pokeball-center-btn"></div>
+    </div>
+    <div class="opening-light"></div>
+  </div>
+  
+  <div class="pokemon-detail-panel redesigned" [class.panel-appearing]="showPanel">
     <div class="detail-header redesigned-header">
       <div class="pokemon-image-container" [style.--type-color]="backgroundColor">
         <img [src]="pokemon.image" [alt]="pokemon.name" class="detail-img-large no-bg-img" />

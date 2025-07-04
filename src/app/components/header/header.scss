@@ -118,6 +118,12 @@
   text-align: center;
   width: 100%;
   margin-bottom: 0.5rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.filter-label:hover {
+  color: #e3350d;
+  transform: scale(1.02);
 }
 .filter-icon {
   background: #fff;
@@ -128,11 +134,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.2s, background 0.2s;
+  transition: box-shadow 0.2s, background 0.2s, transform 0.2s, color 0.2s;
 }
 .filter-icon:hover {
   background: #f7f9fb;
   box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  transform: translateY(-2px) scale(1.05);
+  color: #e3350d;
+}
+.filter-icon:active {
+  transform: translateY(0) scale(0.95);
+}
+.filter-icon.active {
+  background: #e3350d;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(227,53,13,0.20);
+}
+.filter-icon.active:hover {
+  background: #b71c1c;
+  transform: translateY(-2px) scale(1.05);
 }
 mat-icon {
   vertical-align: middle;
@@ -152,6 +172,12 @@ mat-icon {
   min-height: 56px;
   max-width: 600px;
   width: 100%;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.custom-search-container:hover {
+  box-shadow: 0 6px 32px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
 }
 .custom-search-input {
   flex: 1;
@@ -161,6 +187,11 @@ mat-icon {
   font-size: 1.18rem;
   padding: 1.1rem 0;
   border-radius: 32px;
+  transition: color 0.2s ease;
+}
+
+.custom-search-input:focus {
+  color: #333;
 }
 .custom-search-input::placeholder {
   color: #bdbdbd;
@@ -179,11 +210,15 @@ mat-icon {
   justify-content: center;
   margin-left: 0.5rem;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 .custom-search-btn:hover {
   background: #b71c1c;
-  box-shadow: 0 2px 8px rgba(227,53,13,0.15);
+  box-shadow: 0 4px 16px rgba(227,53,13,0.25);
+  transform: scale(1.05);
+}
+.custom-search-btn:active {
+  transform: scale(0.95);
 }
 .pokemon-logo-img {
   height: 200px;
