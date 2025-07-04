@@ -16,6 +16,7 @@ export class PokemonDetail implements OnChanges {
   @Input() pokemon: any;
   @Output() closeDetail: EventEmitter<void> = new EventEmitter<void>();
   @Output() selectEvolution: EventEmitter<any> = new EventEmitter<any>();
+  @Output() pokemonSaved: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('radarChart') radarChartRef!: ElementRef<HTMLCanvasElement>;
   radarChartInstance: any;
 
@@ -121,7 +122,14 @@ export class PokemonDetail implements OnChanges {
   }
 
   saveRecentPokemon(pokemon: any) {
-    if (!pokemon) return;
+    if (!pokemon) {
+      return;
+    }
+    
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+    
     const key = 'recentPokemons';
     let recents: any[] = [];
     try {
@@ -136,5 +144,6 @@ export class PokemonDetail implements OnChanges {
     });
     recents = recents.slice(0, 10);
     localStorage.setItem(key, JSON.stringify(recents));
+    this.pokemonSaved.emit(pokemon);
   }
 }

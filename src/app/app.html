@@ -1,13 +1,23 @@
 <app-header (searchChange)="onSearch($event)" (sortChange)="onSort($event)" (reset)="onReset()" (typeChange)="onType($event)"></app-header>
 <div class="main-content flex-layout">
   <div class="pokedex-list">
-    <app-pokemon-list (selectPokemon)="onSelectPokemon($event)" [search]="search" [sortBy]="sortBy"></app-pokemon-list>
+    <app-pokemon-list (selectPokemon)="onSelectPokemon($event)" [search]="search" [sortBy]="sortBy" [isDescending]="isDescending"></app-pokemon-list>
   </div>
 
   <div class="detail-and-recents" *ngIf="selectedPokemon">
-    <app-pokemon-detail [pokemon]="selectedPokemon" (closeDetail)="onCloseDetail()" (selectEvolution)="onSelectEvolution($event)"></app-pokemon-detail>
-    <app-recent-pokemon (selectPokemon)="onSelectPokemon($event)"></app-recent-pokemon>
+    <app-pokemon-detail [pokemon]="selectedPokemon" (closeDetail)="onCloseDetail()" (selectEvolution)="onSelectEvolution($event)" (pokemonSaved)="onPokemonSaved($event)"></app-pokemon-detail>
   </div>
+  
+  <div class="recent-pokemon-section" *ngIf="selectedPokemon && shouldShowRecentSection()">
+    <app-recent-pokemon (selectPokemon)="onSelectPokemon($event)" (hasRecentChanged)="onRecentChanged($event)" #recentComponent></app-recent-pokemon>
+  </div>
+  
+  <app-recent-pokemon 
+    *ngIf="selectedPokemon && !shouldShowRecentSection()" 
+    (hasRecentChanged)="onRecentChanged($event)" 
+    #recentComponentHidden
+    style="position: absolute; top: -9999px; visibility: hidden;">
+  </app-recent-pokemon>
 </div>
 
 <footer class="app-footer">

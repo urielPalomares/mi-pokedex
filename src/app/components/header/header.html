@@ -4,7 +4,7 @@
 
 <div class="search-bar-centered">
   <div class="custom-search-container">
-    <input type="text" class="custom-search-input" placeholder="Search your Pokémon!" [(ngModel)]="search" (input)="onSearchChange()" />
+    <input type="text" class="custom-search-input" placeholder="¡Busca tu Pokémon!" [(ngModel)]="search" (input)="onSearchChange()" />
     <button class="custom-search-btn" (click)="onSearchChange()">
       <mat-icon>search</mat-icon>
     </button>
@@ -12,7 +12,7 @@
 </div>
 
 <div class="filters-row-centered">
-  <div class="filter-label">Sort by:</div>
+  <div class="filter-label">Ordenar por:</div>
   <div class="filter-btn-row">
     <button mat-icon-button class="filter-icon" (click)="setSort('id')" [class.active]="sortBy==='id'" title="Ordenar por número">
       <mat-icon>format_list_numbered</mat-icon>

@@ -26,6 +26,7 @@ export class PokemonList implements OnInit {
   paginatedPokemons: Pokemon[] = [];
   @Input() search: string = '';
   @Input() sortBy: string = 'id';
+  @Input() isDescending: boolean = false;
   currentPage: number = 1;
   pageSize: number = 20;
   totalPagesArray: number[] = [];
@@ -161,43 +162,45 @@ export class PokemonList implements OnInit {
       );
     }
 
+    const sortMultiplier = this.isDescending ? -1 : 1;
+    
     switch (this.sortBy) {
       case 'name':
-        filtered = filtered.slice().sort((a, b) => a.name.localeCompare(b.name));
+        filtered = filtered.slice().sort((a, b) => sortMultiplier * a.name.localeCompare(b.name));
         break;
       case 'hp':
         filtered = filtered.slice().sort((a, b) => {
           const aHp = a.stats.find((s: any) => s.name === 'hp')?.value || 0;
           const bHp = b.stats.find((s: any) => s.name === 'hp')?.value || 0;
-          return bHp - aHp;
+          return sortMultiplier * (bHp - aHp);
         });
         break;
       case 'attack':
         filtered = filtered.slice().sort((a, b) => {
           const aAtk = a.stats.find((s: any) => s.name === 'attack')?.value || 0;
           const bAtk = b.stats.find((s: any) => s.name === 'attack')?.value || 0;
-          return bAtk - aAtk;
+          return sortMultiplier * (bAtk - aAtk);
         });
         break;
       case 'type':
-        filtered = filtered.slice().sort((a, b) => (a.types[0] || '').localeCompare(b.types[0] || ''));
+        filtered = filtered.slice().sort((a, b) => sortMultiplier * (a.types[0] || '').localeCompare(b.types[0] || ''));
         break;
       case 'electric':
         filtered = filtered.slice().sort((a, b) => 
-          (b.types.includes('electric') ? 1 : 0) - (a.types.includes('electric') ? 1 : 0)
+          sortMultiplier * ((b.types.includes('electric') ? 1 : 0) - (a.types.includes('electric') ? 1 : 0))
         );
         break;
       case 'exp':
-        filtered = filtered.slice().sort((a, b) => b.base_experience - a.base_experience);
+        filtered = filtered.slice().sort((a, b) => sortMultiplier * (b.base_experience - a.base_experience));
         break;
       case 'height':
-        filtered = filtered.slice().sort((a, b) => b.height - a.height);
+        filtered = filtered.slice().sort((a, b) => sortMultiplier * (b.height - a.height));
         break;
       case 'weight':
-        filtered = filtered.slice().sort((a, b) => b.weight - a.weight);
+        filtered = filtered.slice().sort((a, b) => sortMultiplier * (b.weight - a.weight));
         break;
       default:
-        filtered = filtered.slice().sort((a, b) => a.id - b.id);
+        filtered = filtered.slice().sort((a, b) => sortMultiplier * (a.id - b.id));
     }
 
     const totalPages = Math.ceil(filtered.length / this.pageSize);

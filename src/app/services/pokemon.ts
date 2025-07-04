@@ -114,7 +114,9 @@ export class PokemonService {
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'Ha ocurrido un error inesperado';
 
-    if (error.error instanceof ErrorEvent) {
+    if (typeof window !== 'undefined' && error.error instanceof ErrorEvent) {
+      errorMessage = `Error de conexión: ${error.error.message}`;
+    } else if (error.error && typeof error.error === 'object' && error.error.message) {
       errorMessage = `Error de conexión: ${error.error.message}`;
     } else {
       switch (error.status) {

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,22 +26,29 @@ import { FormsModule } from '@angular/forms';
 export class Header {
   search: string = '';
   sortBy: string = 'id';
+  isDescending: boolean = false;
   @Output() searchChange = new EventEmitter<string>();
-  @Output() sortChange = new EventEmitter<string>();
+  @Output() sortChange = new EventEmitter<{field: string, isDescending: boolean}>();
   @Output() reset = new EventEmitter<void>();
 
   onSearchChange() {
     this.searchChange.emit(this.search);
   }
   setSort(sort: string) {
-    this.sortBy = sort;
-    this.sortChange.emit(sort);
+    if (this.sortBy === sort) {
+      this.isDescending = !this.isDescending;
+    } else {
+      this.sortBy = sort;
+      this.isDescending = false;
+    }
+    this.sortChange.emit({field: sort, isDescending: this.isDescending});
   }
   resetFilters() {
     this.search = '';
     this.sortBy = 'id';
+    this.isDescending = false;
     this.reset.emit();
     this.onSearchChange();
-    this.sortChange.emit('id');
+    this.sortChange.emit({field: 'id', isDescending: false});
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Header } from './components/header/header';
@@ -20,22 +20,68 @@ import { RecentPokemon } from './components/pokemon-list/recent-pokemon';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
   protected title = 'mi-pokedex';
   selectedPokemon: any = null;
   search: string = '';
   sortBy: string = 'id';
+  isDescending: boolean = false;
   filterType: string = '';
-  @ViewChild(RecentPokemon) recentPokemonComp!: RecentPokemon;
+  hasRecentPokemons: boolean = false;
+  @ViewChild('recentComponent') recentPokemonComp!: RecentPokemon;
+  @ViewChild('recentComponentHidden') recentPokemonCompHidden!: RecentPokemon;
+
+  constructor() {}
 
   onSelectPokemon(pokemon: any) {
     this.selectedPokemon = pokemon;
-    setTimeout(() => this.recentPokemonComp?.reload(), 0);
+  }
+
+  onPokemonSaved(pokemon: any) {
+    const activeComponent = this.recentPokemonComp || this.recentPokemonCompHidden;
+    
+    if (activeComponent) {
+      activeComponent.reload();
+    } else {
+      console.log('onPokemonSaved: No component available, cannot reload');
+    }
+    this.checkRecentPokemons();
+  }
+
+  shouldShowRecentSection(): boolean {
+    if (typeof localStorage === 'undefined') return false;
+    
+    try {
+      const recent = JSON.parse(localStorage.getItem('recentPokemons') || '[]');
+      return recent.length > 0;
+    } catch {
+      return false;
+    }
   }
 
   onCloseDetail() {
     this.selectedPokemon = null;
-    setTimeout(() => this.recentPokemonComp?.reload(), 0);
+  }
+
+  onRecentChanged(hasRecent: boolean) {
+    this.hasRecentPokemons = hasRecent;
+  }
+
+  ngOnInit() {
+    this.checkRecentPokemons();
+  }
+
+  checkRecentPokemons() {
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const recent = JSON.parse(localStorage.getItem('recentPokemons') || '[]');
+        this.hasRecentPokemons = recent.length > 0;
+      } catch {
+        this.hasRecentPokemons = false;
+      }
+    } else {
+      this.hasRecentPokemons = false;
+    }
   }
 
   onSelectEvolution(evo: any) {
@@ -46,13 +92,15 @@ export class App {
     this.search = value;
   }
 
-  onSort(value: string) {
-    this.sortBy = value;
+  onSort(sortData: {field: string, isDescending: boolean}) {
+    this.sortBy = sortData.field;
+    this.isDescending = sortData.isDescending;
   }
 
   onReset() {
     this.search = '';
     this.sortBy = 'id';
+    this.isDescending = false;
   }
 
   onType(event: any) {

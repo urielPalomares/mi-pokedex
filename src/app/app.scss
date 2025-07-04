@@ -21,6 +21,15 @@ body, html {
 .pokedex-list {
   flex: 2 1 0;
 }
+.recent-pokemon-section {
+  position: fixed;
+  bottom: 40px;
+  left: 20px;
+  z-index: 100;
+  max-width: 350px;
+  height: 400px;
+  padding-bottom: 20px;
+}
 
 .app-footer {
   background: #ffa751;

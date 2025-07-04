@@ -109,7 +109,6 @@
   height: 10rem;
   object-fit: contain;
   transition: opacity 0.3s;
-  
   &.error-image {
     opacity: 0.3;
   }
@@ -128,10 +127,20 @@
   margin-bottom: 1rem;
   width: 100%;
   padding: 0 1rem;
+  position: relative;
+  z-index: 3;
 }
 .pokemon-id {
-  color: #bdbdbd;
+  color: #fff;
   font-size: 0.9rem;
+  font-weight: 700;
+  background: rgba(0,0,0,0.7);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
 }
 .pokemon-name {
   font-size: 1.2rem;
@@ -154,7 +163,6 @@
   text-transform: uppercase;
   color: #333;
   transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-  
   &.unknown-type {
     background: #e0e0e0;
     color: #999;
@@ -233,7 +241,6 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-  
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -390,7 +397,6 @@
   opacity: 0;
   pointer-events: none;
   z-index: 10;
-  
   &.capturing {
     opacity: 1;
     animation: pokeball-throw 1.5s ease-out forwards;
@@ -467,7 +473,6 @@
   }
 }
 
-// Animación de captura exitosa para la card
 .pokemon-card {
   &.capturing {
     animation: card-capture 1.5s ease-out forwards;
