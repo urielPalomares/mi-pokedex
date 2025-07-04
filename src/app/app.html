@@ -1,7 +1,7 @@
 <app-header (searchChange)="onSearch($event)" (sortChange)="onSort($event)" (reset)="onReset()" (typeChange)="onType($event)"></app-header>
 <div class="main-content flex-layout">
   <div class="pokedex-list">
-    <app-pokemon-list (selectPokemon)="onSelectPokemon($event)" [search]="search" [sortBy]="sortBy" [isDescending]="isDescending"></app-pokemon-list>
+    <app-pokemon-list (selectPokemon)="onSelectPokemon($event)" [search]="search" [sortBy]="sortBy" [isDescending]="isDescending" [filterType]="filterType"></app-pokemon-list>
   </div>
 
   <div class="detail-and-recents" *ngIf="selectedPokemon">

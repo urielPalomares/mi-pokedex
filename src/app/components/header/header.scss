@@ -44,6 +44,14 @@
   justify-content: center;
   margin: 1.2rem 0 1.5rem 0;
 }
+
+.search-and-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 800px;
+  width: 100%;
+}
 .search-field-large {
   min-width: 400px;
   max-width: 600px;
@@ -170,8 +178,8 @@ mat-icon {
   box-shadow: 0 4px 24px rgba(0,0,0,0.10);
   padding: 0 0.5rem 0 1.2rem;
   min-height: 56px;
-  max-width: 600px;
-  width: 100%;
+  flex: 1;
+  max-width: 500px;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
@@ -221,10 +229,162 @@ mat-icon {
   transform: scale(0.95);
 }
 .pokemon-logo-img {
-  height: 200px;
+  height: 120px;
   width: auto;
   display: block;
   margin: 0;
   padding: 0;
+}
+
+.type-filter-container {
+  display: flex;
+  align-items: center;
+  min-width: 180px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  min-width: 220px;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 1.2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.custom-select-wrapper:hover {
+  box-shadow: 0 6px 32px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.custom-select-wrapper:focus-within {
+  box-shadow: 0 6px 32px rgba(227, 53, 13, 0.2);
+  transform: translateY(-1px);
+}
+
+.select-icon {
+  color: #e3350d;
+  font-size: 1.3rem;
+  margin-right: 0.8rem;
+  transition: color 0.3s ease;
+}
+
+.custom-type-select {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  padding: 0;
+  min-height: 56px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.custom-type-select:focus {
+  outline: none;
+}
+
+.custom-type-select option {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #fff;
+  color: #333;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-type-select option:hover {
+  background: #f5f5f5;
+}
+
+.custom-type-select option:checked {
+  background: #e3350d;
+  color: #fff;
+}
+
+.dropdown-arrow {
+  color: #e3350d;
+  font-size: 1.4rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  pointer-events: none;
+}
+
+.custom-select-wrapper:hover .dropdown-arrow {
+  transform: rotate(180deg);
+  color: #b71c1c;
+}
+
+.custom-select-wrapper:focus-within .dropdown-arrow {
+  transform: rotate(180deg);
+  color: #b71c1c;
+}
+
+.custom-select-wrapper:hover .select-icon {
+  color: #b71c1c;
+}
+
+.custom-select-wrapper:focus-within .select-icon {
+  color: #b71c1c;
+}
+
+/* Estilo para cuando está seleccionado un tipo */
+.custom-type-select:not([value=""]) {
+  color: #e3350d;
+  font-weight: 600;
+}
+
+/* Animación de foco */
+.custom-select-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 28px;
+  background: linear-gradient(45deg, rgba(227, 53, 13, 0.1), rgba(255, 226, 89, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.custom-select-wrapper:hover::before {
+  opacity: 1;
+}
+
+.custom-select-wrapper:focus-within::before {
+  opacity: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-and-filter-container {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .custom-search-container {
+    max-width: 100%;
+  }
+  
+  .type-filter-container {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .custom-select-wrapper {
+    min-width: 100%;
+  }
 }
 

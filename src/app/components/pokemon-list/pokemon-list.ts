@@ -27,6 +27,7 @@ export class PokemonList implements OnInit {
   @Input() search: string = '';
   @Input() sortBy: string = 'id';
   @Input() isDescending: boolean = false;
+  @Input() filterType: string = '';
   currentPage: number = 1;
   pageSize: number = 20;
   totalPagesArray: number[] = [];
@@ -159,6 +160,12 @@ export class PokemonList implements OnInit {
       filtered = filtered.filter(p => 
         p.name.toLowerCase().includes(search) || 
         p.id.toString() === search
+      );
+    }
+    
+    if (this.filterType) {
+      filtered = filtered.filter(p => 
+        p.types.includes(this.filterType)
       );
     }
 

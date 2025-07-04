@@ -27,9 +27,11 @@ export class Header {
   search: string = '';
   sortBy: string = 'id';
   isDescending: boolean = false;
+  selectedType: string = '';
   @Output() searchChange = new EventEmitter<string>();
   @Output() sortChange = new EventEmitter<{field: string, isDescending: boolean}>();
   @Output() reset = new EventEmitter<void>();
+  @Output() typeChange = new EventEmitter<string>();
 
   onSearchChange() {
     this.searchChange.emit(this.search);
@@ -43,12 +45,18 @@ export class Header {
     }
     this.sortChange.emit({field: sort, isDescending: this.isDescending});
   }
+  onTypeChange() {
+    this.typeChange.emit(this.selectedType);
+  }
+
   resetFilters() {
     this.search = '';
     this.sortBy = 'id';
     this.isDescending = false;
+    this.selectedType = '';
     this.reset.emit();
     this.onSearchChange();
     this.sortChange.emit({field: 'id', isDescending: false});
+    this.typeChange.emit('');
   }
 }

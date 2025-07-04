@@ -101,6 +101,7 @@ export class App implements OnInit {
     this.search = '';
     this.sortBy = 'id';
     this.isDescending = false;
+    this.filterType = '';
   }
 
   onType(event: any) {
