@@ -1,0 +1,70 @@
+<div *ngIf="pokemon" class="pokemon-detail-panel-wrapper">
+  <div class="pokemon-detail-panel redesigned">
+    <div class="detail-header redesigned-header">
+      <div class="pokemon-image-container" [style.--type-color]="backgroundColor">
+        <img [src]="pokemon.image" [alt]="pokemon.name" class="detail-img-large no-bg-img" />
+      </div>
+      <div class="header-info">
+        <div class="detail-id">#{{ pokemon.id }}</div>
+        <h2 class="detail-name spectacular-name">{{ pokemon.name }} <span class="color-text">- {{ getTypeColorName(pokemon.types[0]) }}</span></h2>
+        <div class="detail-species">{{ pokemon.species }}</div>
+        <div class="detail-types spectacular-types redesigned-types">
+          <span class="type-badge type-{{ type }}" *ngFor="let type of pokemon.types">
+            <mat-icon class="type-icon">category</mat-icon> {{ type }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="pokedex-entry spectacular-entry redesigned-entry">{{ pokemon.entry }}</div>
+    <div class="detail-section abilities redesigned-abilities">
+      <div class="section-title">ABILITIES</div>
+      <div class="ability-badges spectacular-abilities">
+        <span class="ability-badge" *ngFor="let ability of pokemon.abilities">
+          <mat-icon class="ability-icon">star</mat-icon> {{ ability }}
+        </span>
+      </div>
+    </div>
+    <div class="detail-section measurements spectacular-measurements redesigned-measurements">
+      <div class="measurement">
+        <mat-icon class="measurement-icon">height</mat-icon>
+        <div class="label">HEIGHT</div>
+        <div class="value">{{ pokemon.height }}m</div>
+      </div>
+      <div class="measurement">
+        <mat-icon class="measurement-icon">fitness_center</mat-icon>
+        <div class="label">WEIGHT</div>
+        <div class="value">{{ pokemon.weight }}Kg</div>
+      </div>
+      <div class="measurement">
+        <mat-icon class="measurement-icon">star</mat-icon>
+        <div class="label">BASE EXP</div>
+        <div class="value">{{ pokemon.base_experience }}</div>
+      </div>
+    </div>
+    <div class="detail-section weaknesses spectacular-weaknesses redesigned-weaknesses">
+      <div class="section-title">WEAKNESSES</div>
+      <div class="weakness-badges">
+        <span class="type-badge type-{{ type }}" *ngFor="let type of pokemon.weaknesses">
+          <mat-icon class="weakness-icon">bolt</mat-icon> {{ type }}
+        </span>
+      </div>
+    </div>
+    <div class="detail-section stats spectacular-stats redesigned-stats">
+      <div class="section-title">STATS</div>
+      <div class="stats-list redesigned-stats-list">
+        <canvas #radarChart width="320" height="320"></canvas>
+      </div>
+    </div>
+    <div class="detail-section evolution spectacular-evolution redesigned-evolution">
+      <div class="section-title">EVOLUTION</div>
+      <div class="evolution-list">
+        <div class="evolution-stage spectacular-evo" *ngFor="let evo of pokemon.evolution" (click)="selectEvolution.emit(evo)">
+          <div class="evo-img-glow">
+            <img [src]="evo.image" [alt]="evo.name" />
+          </div>
+          <div class="evo-name">{{ evo.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

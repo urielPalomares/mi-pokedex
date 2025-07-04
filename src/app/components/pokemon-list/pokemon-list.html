@@ -1,0 +1,78 @@
+<!-- Estado de carga -->
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-spinner">
+    <mat-icon class="spinning">refresh</mat-icon>
+    <p>Cargando Pokémon...</p>
+  </div>
+</div>
+
+<!-- Estado de error -->
+<div *ngIf="error && !loading" class="error-container">
+  <div class="error-message">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h3>Error al cargar los Pokémon</h3>
+    <p>No se pudieron cargar los datos. Verifica tu conexión a internet.</p>
+    <button mat-raised-button color="primary" (click)="retryLoad()">
+      <mat-icon>refresh</mat-icon>
+      Reintentar
+    </button>
+  </div>
+</div>
+
+<!-- Lista de Pokémon -->
+<div *ngIf="!loading && !error" class="pokemon-list-grid">
+  <ng-container *ngIf="paginatedPokemons.length > 0; else noResults">
+    <mat-card class="pokemon-card" *ngFor="let pokemon of paginatedPokemons" (click)="selectPokemon.emit(pokemon)">
+      <div class="pokemon-img-container">
+        <img 
+          [src]="pokemon.image" 
+          [alt]="pokemon.name" 
+          (error)="pokemon.image = 'assets/placeholder.png'"
+          [class.error-image]="pokemon.image === 'assets/placeholder.png'"
+        />
+        <!-- Overlay para imágenes con error -->
+        <div *ngIf="pokemon.image === 'assets/placeholder.png'" class="image-error-overlay">
+          <mat-icon>image_not_supported</mat-icon>
+        </div>
+      </div>
+      <div class="pokemon-info">
+        <span class="pokemon-id">#{{ pokemon.id || '???' }}</span>
+        <h3 class="pokemon-name">{{ pokemon.name }}</h3>
+        <div class="pokemon-types">
+          <span 
+            class="type-badge type-{{ type }}" 
+            *ngFor="let type of pokemon.types"
+            [class.unknown-type]="type === 'unknown'"
+          >
+            {{ type === 'unknown' ? '???' : type }}
+          </span>
+        </div>
+        <!-- Indicador de datos incompletos -->
+        <div *ngIf="pokemon.id === 0" class="incomplete-data">
+          <mat-icon class="warning-icon">warning</mat-icon>
+          <span>Datos incompletos</span>
+        </div>
+      </div>
+    </mat-card>
+  </ng-container>
+  
+  <ng-template #noResults>
+    <div class="no-results">
+      <mat-icon class="no-results-icon">search_off</mat-icon>
+      <h3>No se encontraron Pokémon</h3>
+      <p>Intenta con otra búsqueda o filtro.</p>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Controles de paginación -->
+<div *ngIf="!loading && !error && totalPagesArray.length > 1" class="pagination-controls">
+  <button 
+    *ngFor="let page of totalPagesArray; let i = index" 
+    (click)="goToPage(i+1)" 
+    [class.active]="currentPage === (i+1)"
+    [disabled]="loading"
+  >
+    {{ i+1 }}
+  </button>
+</div>
